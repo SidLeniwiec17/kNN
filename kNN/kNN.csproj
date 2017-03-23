@@ -64,6 +64,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Content\Face.cs" />
+    <Compile Include="Content\KNN.cs" />
     <Compile Include="Helpers\DirectionTranslator.cs" />
     <Compile Include="Helpers\FaceConverter.cs" />
     <Compile Include="Helpers\ImageLoader.cs" />

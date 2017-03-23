@@ -33,15 +33,34 @@ namespace kNN
             solution = new List<Face>();
         }
 
-        private void LoadLearningPicture_Click(object sender, RoutedEventArgs e)
+        private async void LoadLearningPicture_Click(object sender, RoutedEventArgs e)
         {
+            BlakWait.Visibility = Visibility.Visible;
             List<List<string>> pictures = ImageLoader.GetImages(true);
-            dataSet = FaceConverter.ConvertFaces(pictures,true);
+            await ConvertKnownPic(pictures);
+            BlakWait.Visibility = Visibility.Collapsed;
         }
-        private void LoadTestingPicture_Click(object sender, RoutedEventArgs e)
+        private async void LoadTestingPicture_Click(object sender, RoutedEventArgs e)
         {
+            BlakWait.Visibility = Visibility.Visible;
             List<List<string>> tempUnknownPictures = ImageLoader.GetImages(false);
-            unknownFaces = FaceConverter.ConvertFaces(tempUnknownPictures, false);
+            await ConvertUnKnownPic(tempUnknownPictures);
+            BlakWait.Visibility = Visibility.Collapsed;
+        }
+
+        private async Task ConvertKnownPic(List<List<string>> pictures)
+        {
+            await Task.Run(() =>
+               {
+                   dataSet = FaceConverter.ConvertFaces(pictures, true);
+               });
+        }
+        private async Task ConvertUnKnownPic(List<List<string>> tempUnknownPictures)
+        {
+            await Task.Run(() =>
+               {
+                   unknownFaces = FaceConverter.ConvertFaces(tempUnknownPictures, false);
+               });
         }
 
         private async void Knn_Click(object sender, RoutedEventArgs e)
@@ -53,16 +72,16 @@ namespace kNN
             if (k < 1 || dataSet.Count < 2 || unknownFaces.Count < 1)
                 return;
 
-           await PerformCalculations();
+           await PerformCalculations(k);
 
            BlakWait.Visibility = Visibility.Collapsed;
         }
 
-        public async Task PerformCalculations()
+        public async Task PerformCalculations(int k)
         {
             await Task.Run(() =>
                {
-                   solution = KNN.PerformKnn(dataSet, unknownFaces);
+                   solution = KNN.PerformKnn(dataSet, unknownFaces, k);
                });
         }
     }

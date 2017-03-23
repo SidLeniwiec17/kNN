@@ -22,7 +22,7 @@ namespace kNN.Helpers
                 {
                     List<int> gradients = new List<int>();
                     string _class = "UNKNOWN";
-
+                    int index = -1;
                     Bitmap picture = GrayScale(new Bitmap(pictures[c][i]));
                     gradients = GetGradient(picture);
                     if (flag == true)
@@ -31,26 +31,30 @@ namespace kNN.Helpers
                         {
                             case 0:
                                 _class = "BK";
+                                index = 0;
                                 break;
                             case 1:
                                 _class = "BM";
+                                index = 1;
                                 break;
                             case 2:
                                 _class = "LK";
+                                index = 2;
                                 break;
                             case 3:
                                 _class = "LM";
+                                index = 3;
                                 break;
                         }
                     }
                     if (flag == true)
                     {
-                        Face tempFace = new Face(_class, gradients);
+                        Face tempFace = new Face(_class, gradients,index);
                         faces.Add(tempFace);
                     }
                     else
                     {
-                        Face tempFace = new Face(_class, gradients, pictures[c][i]);
+                        Face tempFace = new Face(_class, gradients, pictures[c][i],index);
                         faces.Add(tempFace);
                     }
                 });
