@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using kNN.Content;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,7 +10,7 @@ using System.Windows.Forms;
 
 namespace kNN.Helpers
 {
-    public class ImageLoader
+    public class FileLoader
     {
         //flag - true ; jezeli wgrywamy zbior uczacy
         //flag - false ; jezeli wgrywamy zbior testowy
@@ -77,6 +78,39 @@ namespace kNN.Helpers
                 }
             }
             return imagesList;
+        }
+
+        public static string GetDirectory()
+        {
+            string path = "";
+            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
+            if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
+            {
+                path = folderBrowserDialog.SelectedPath;
+            }
+            return path;
+        }
+
+        public static void CopyAnswers(List<Face> solution, string answerPath)
+        {
+            for(int i = 0 ; i < solution.Count(); i++)
+            {
+                string picDir = solution[i].Path;
+                string finalDir = answerPath + "\\" + solution[i].Class + "\\" + Path.GetFileName(picDir);
+                File.Copy(@picDir, @finalDir);
+            }
+            /*
+            foreach( var dir in Directory.GetDirectories(path))
+               {
+                   List<string> images = new List<string>();
+                   foreach ( var file in Directory.GetFiles(dir))
+                   {
+                       images.Add(file);
+                   }
+                   imagesList.Add(images);
+               }
+            */
+            //File.Copy(@"someDirectory\someFile.txt", @"otherDirectory\someFile.txt");
         }
     }
 }

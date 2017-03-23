@@ -25,6 +25,7 @@ namespace kNN
         List<Face> dataSet;
         List<Face> unknownFaces;
         List<Face> solution;
+        string answerPath;
         public MainWindow()
         {
             InitializeComponent();
@@ -36,16 +37,20 @@ namespace kNN
         private async void LoadLearningPicture_Click(object sender, RoutedEventArgs e)
         {
             BlakWait.Visibility = Visibility.Visible;
-            List<List<string>> pictures = ImageLoader.GetImages(true);
+            List<List<string>> pictures = FileLoader.GetImages(true);
             await ConvertKnownPic(pictures);
             BlakWait.Visibility = Visibility.Collapsed;
         }
         private async void LoadTestingPicture_Click(object sender, RoutedEventArgs e)
         {
             BlakWait.Visibility = Visibility.Visible;
-            List<List<string>> tempUnknownPictures = ImageLoader.GetImages(false);
+            List<List<string>> tempUnknownPictures = FileLoader.GetImages(false);
             await ConvertUnKnownPic(tempUnknownPictures);
             BlakWait.Visibility = Visibility.Collapsed;
+        }
+        private void LoadAnswerDir_Click(object sender, RoutedEventArgs e)
+        {
+            answerPath = FileLoader.GetDirectory();
         }
 
         private async Task ConvertKnownPic(List<List<string>> pictures)
@@ -69,7 +74,7 @@ namespace kNN
             int k = 0;
             if(!int.TryParse(kTextBox.Text,out k))
                 return;
-            if (k < 1 || dataSet.Count < 2 || unknownFaces.Count < 1)
+            if (k < 1 || dataSet.Count < 2 || unknownFaces.Count < 1|| answerPath.Length < 5)
                 return;
 
            await PerformCalculations(k);
@@ -82,6 +87,7 @@ namespace kNN
             await Task.Run(() =>
                {
                    solution = KNN.PerformKnn(dataSet, unknownFaces, k);
+                   FileLoader.CopyAnswers(solution, answerPath);
                });
         }
     }

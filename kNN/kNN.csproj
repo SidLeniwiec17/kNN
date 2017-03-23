@@ -67,7 +67,7 @@
     <Compile Include="Content\KNN.cs" />
     <Compile Include="Helpers\DirectionTranslator.cs" />
     <Compile Include="Helpers\FaceConverter.cs" />
-    <Compile Include="Helpers\ImageLoader.cs" />
+    <Compile Include="Helpers\FileLoader.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
