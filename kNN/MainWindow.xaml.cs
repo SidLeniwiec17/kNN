@@ -32,6 +32,7 @@ namespace kNN
             dataSet = new List<Face>();
             unknownFaces = new List<Face>();
             solution = new List<Face>();
+            answerPath = "";
         }
 
         private async void LoadLearningPicture_Click(object sender, RoutedEventArgs e)

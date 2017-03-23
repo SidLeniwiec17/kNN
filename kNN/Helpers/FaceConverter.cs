@@ -49,13 +49,23 @@ namespace kNN.Helpers
                     }
                     if (flag == true)
                     {
-                        Face tempFace = new Face(_class, gradients,index);
-                        faces.Add(tempFace);
+                        Face tempFace = new Face(_class, gradients, index);
+                        if (tempFace.Validate() == true)
+                            faces.Add(tempFace);
+                        else
+                        {
+                            Console.WriteLine("ERROR !?");
+                        }
                     }
                     else
                     {
-                        Face tempFace = new Face(_class, gradients, pictures[c][i],index);
-                        faces.Add(tempFace);
+                        Face tempFace = new Face(_class, gradients, pictures[c][i], index);
+                        if (tempFace.Validate() == true)
+                            faces.Add(tempFace);
+                        else
+                        {
+                            Console.WriteLine("ERROR !?");
+                        }
                     }
                 });
             }
@@ -94,17 +104,21 @@ namespace kNN.Helpers
         public static List<int> SmallGradientToBigGradient(int[,] smallGradient, int width, int height)
         {
             
-            int gX = 10;
-            int gY = 15;
-            int dX = (width / gX) + 1;
-            int dY = (height / gY) + 1;
+            int gX = 15;
+            int gY = 20;
+            int dX = (width / gX) ;
+            int dY = (height / gY) ;
             List<int> gradient = new List<int>();
             double[,] values = new double[gX, gY];
+            for (int i = 0; i < gX; i++)
+                for (int j = 0; j < gY; j++)
+                    values[i, j] = 0;
+
             int[,] numbers = new int[gX, gY];
 
-            for (int y = 0; y < height; y++ )
+            for (int y = 0; y < gY * dY; y++ )
             {
-                for(int x = 0 ; x < width ; x++)
+                for (int x = 0; x < gX * dX; x++)
                 {
                     values[x / dX, y / dY] = values[x / dX, y / dY] + (double)smallGradient[x, y];
                     numbers[x / dX, y / dY] = numbers[x / dX, y / dY] + 1;

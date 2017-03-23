@@ -50,5 +50,14 @@ namespace kNN.Content
             this.Distance = distance;
             this.ClassIndex = _face.ClassIndex;
         }
+        public bool Validate()
+        {
+            for (int i = 0; i < this.Gradients.Count(); i++)
+            {
+                if (this.Gradients[i] < 0 || this.Gradients[i] > 8)
+                    return false;
+            }
+            return true;
+        }
     }
 }

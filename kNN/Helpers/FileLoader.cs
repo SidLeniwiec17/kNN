@@ -99,18 +99,6 @@ namespace kNN.Helpers
                 string finalDir = answerPath + "\\" + solution[i].Class + "\\" + Path.GetFileName(picDir);
                 File.Copy(@picDir, @finalDir);
             }
-            /*
-            foreach( var dir in Directory.GetDirectories(path))
-               {
-                   List<string> images = new List<string>();
-                   foreach ( var file in Directory.GetFiles(dir))
-                   {
-                       images.Add(file);
-                   }
-                   imagesList.Add(images);
-               }
-            */
-            //File.Copy(@"someDirectory\someFile.txt", @"otherDirectory\someFile.txt");
         }
     }
 }
