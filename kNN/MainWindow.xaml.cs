@@ -22,15 +22,48 @@ namespace kNN
     /// </summary>
     public partial class MainWindow : Window
     {
+        List<Face> dataSet;
+        List<Face> unknownFaces;
+        List<Face> solution;
         public MainWindow()
         {
             InitializeComponent();
+            dataSet = new List<Face>();
+            unknownFaces = new List<Face>();
+            solution = new List<Face>();
         }
 
-        private void LoadPicture_Click(object sender, RoutedEventArgs e)
+        private void LoadLearningPicture_Click(object sender, RoutedEventArgs e)
         {
-            List<List<string>> pictures = ImageLoader.GetImages();
-            List<Face> faces = FaceConverter.ConvertFaces(pictures);
+            List<List<string>> pictures = ImageLoader.GetImages(true);
+            dataSet = FaceConverter.ConvertFaces(pictures,true);
+        }
+        private void LoadTestingPicture_Click(object sender, RoutedEventArgs e)
+        {
+            List<List<string>> tempUnknownPictures = ImageLoader.GetImages(false);
+            unknownFaces = FaceConverter.ConvertFaces(tempUnknownPictures, false);
+        }
+
+        private async void Knn_Click(object sender, RoutedEventArgs e)
+        {
+            BlakWait.Visibility = Visibility.Visible;
+            int k = 0;
+            if(!int.TryParse(kTextBox.Text,out k))
+                return;
+            if (k < 1 || dataSet.Count < 2 || unknownFaces.Count < 1)
+                return;
+
+           await PerformCalculations();
+
+           BlakWait.Visibility = Visibility.Collapsed;
+        }
+
+        public async Task PerformCalculations()
+        {
+            await Task.Run(() =>
+               {
+                   solution = KNN.PerformKnn(dataSet, unknownFaces);
+               });
         }
     }
 }

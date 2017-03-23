@@ -10,7 +10,9 @@ namespace kNN.Helpers
 {
     public class FaceConverter
     {
-        public static List<Face> ConvertFaces(List<List<string>> pictures)
+        //flag - true ; jezeli wgrywamy zbior uczacy
+        //flag - false ; jezeli wgrywamy zbior testowy
+        public static List<Face> ConvertFaces(List<List<string>> pictures, bool flag)
         {
             List<Face> faces = new List<Face>();
 
@@ -23,24 +25,34 @@ namespace kNN.Helpers
 
                     Bitmap picture = GrayScale(new Bitmap(pictures[c][i]));
                     gradients = GetGradient(picture);
-                    switch (c)
+                    if (flag == true)
                     {
-                        case 0:
-                            _class = "BK";
-                            break;
-                        case 1:
-                            _class = "BM";
-                            break;
-                        case 2:
-                            _class = "LK";
-                            break;
-                        case 3:
-                            _class = "LM";
-                            break;
+                        switch (c)
+                        {
+                            case 0:
+                                _class = "BK";
+                                break;
+                            case 1:
+                                _class = "BM";
+                                break;
+                            case 2:
+                                _class = "LK";
+                                break;
+                            case 3:
+                                _class = "LM";
+                                break;
+                        }
                     }
-
-                    Face tempFace = new Face(_class, gradients);
-                    faces.Add(tempFace);
+                    if (flag == true)
+                    {
+                        Face tempFace = new Face(_class, gradients);
+                        faces.Add(tempFace);
+                    }
+                    else
+                    {
+                        Face tempFace = new Face(_class, gradients, pictures[c][i]);
+                        faces.Add(tempFace);
+                    }
                 });
             }
             return faces;

@@ -10,6 +10,7 @@ namespace kNN.Content
     {
         public string Class { get; set; }
         public List<int> Gradients { get; set; }
+        public string Path { get; set; }
 
         public Face()
         {
@@ -20,6 +21,13 @@ namespace kNN.Content
         {
             this.Class = _class;
             this.Gradients = _gradient;
+        }
+
+        public Face(string _class, List<int> _gradient, string _path)
+        {
+            this.Class = _class;
+            this.Gradients = _gradient;
+            this.Path = _path;
         }
     }
 }
