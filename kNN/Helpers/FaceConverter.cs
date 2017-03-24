@@ -18,56 +18,57 @@ namespace kNN.Helpers
 
             for (int c = 0; c < pictures.Count(); c++)
             {
-                Parallel.For(0, pictures[c].Count(), i =>
-                {
-                    List<int> gradients = new List<int>();
-                    string _class = "UNKNOWN";
-                    int index = -1;
-                    Bitmap picture = GrayScale(new Bitmap(pictures[c][i]));
-                    gradients = GetGradient(picture);
-                    if (flag == true)
+                //for (int i = 0; i < pictures[c].Count(); i++)
+                    Parallel.For(0, pictures[c].Count(), i =>
                     {
-                        switch (c)
+                        List<int> gradients = new List<int>();
+                        string _class = "UNKNOWN";
+                        int index = -1;
+                        Bitmap picture = GrayScale(new Bitmap(pictures[c][i]));
+                        gradients = GetGradient(picture);
+                        if (flag == true)
                         {
-                            case 0:
-                                _class = "BK";
-                                index = 0;
-                                break;
-                            case 1:
-                                _class = "BM";
-                                index = 1;
-                                break;
-                            case 2:
-                                _class = "LK";
-                                index = 2;
-                                break;
-                            case 3:
-                                _class = "LM";
-                                index = 3;
-                                break;
+                            switch (c)
+                            {
+                                case 0:
+                                    _class = "BK";
+                                    index = 0;
+                                    break;
+                                case 1:
+                                    _class = "BM";
+                                    index = 1;
+                                    break;
+                                case 2:
+                                    _class = "LK";
+                                    index = 2;
+                                    break;
+                                case 3:
+                                    _class = "LM";
+                                    index = 3;
+                                    break;
+                            }
                         }
-                    }
-                    if (flag == true)
-                    {
-                        Face tempFace = new Face(_class, gradients, index);
-                        if (tempFace.Validate() == true)
-                            faces.Add(tempFace);
+                        if (flag == true)
+                        {
+                            Face tempFace = new Face(_class, gradients, index);
+                            if (tempFace.Validate() == true)
+                                faces.Add(tempFace);
+                            else
+                            {
+                                Console.WriteLine("ERROR !?");
+                            }
+                        }
                         else
                         {
-                            Console.WriteLine("ERROR !?");
+                            Face tempFace = new Face(_class, gradients, pictures[c][i], index);
+                            if (tempFace.Validate() == true)
+                                faces.Add(tempFace);
+                            else
+                            {
+                                Console.WriteLine("ERROR !?");
+                            }
                         }
-                    }
-                    else
-                    {
-                        Face tempFace = new Face(_class, gradients, pictures[c][i], index);
-                        if (tempFace.Validate() == true)
-                            faces.Add(tempFace);
-                        else
-                        {
-                            Console.WriteLine("ERROR !?");
-                        }
-                    }
-                });
+                    });
             }
             return faces;
         }
@@ -103,9 +104,10 @@ namespace kNN.Helpers
 
         public static List<int> SmallGradientToBigGradient(int[,] smallGradient, int width, int height)
         {
-            
-            int gX = 15;
-            int gY = 20;
+            //int gX = 2;
+            //int gY = 3;
+            int gX = 20;
+            int gY = 25;
             int dX = (width / gX) ;
             int dY = (height / gY) ;
             List<int> gradient = new List<int>();
@@ -141,6 +143,12 @@ namespace kNN.Helpers
          * 8 1 2
          * 7   3
          * 6 5 4
+         * 
+         * a moze ??
+         * 
+         * 4 1 2
+         * 3   3
+         * 2 1 4
          * */
         public static int GetDirection(Color[,] pixels)
         {
@@ -150,15 +158,20 @@ namespace kNN.Helpers
             int maxY = -1;
 
             for (int y = 0; y < 3; y++)
+            {
                 for (int x = 0; x < 3; x++)
                 {
-                    if (pixels[x, y].R >= maxValue && (x != 1 && y != 1))
+                    if (!(x == 1 && y == 1))
                     {
-                        maxValue = pixels[x, y].R;
-                        maxX = x;
-                        maxY = y;
+                        if (pixels[x, y].R >= maxValue)
+                        {
+                            maxValue = pixels[x, y].R;
+                            maxX = x;
+                            maxY = y;
+                        }
                     }
                 }
+            }
 
             int tempDir = (maxY * 3) + maxX;
             if (pixels[1, 1].R == 255 && maxValue == 255)
@@ -166,13 +179,9 @@ namespace kNN.Helpers
                 direction = 0;
             }
 
-            else if (pixels[1, 1].R <= maxValue)
-            {
-                direction = DirectionTranslator.TranslateBiggerCenterDirection(tempDir);
-            }
             else
             {
-                direction = DirectionTranslator.TranslateBiggerCenterDirection(tempDir);
+                direction = DirectionTranslator.TranslateDirection(tempDir);
             }
             return direction;
         }

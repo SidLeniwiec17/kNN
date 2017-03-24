@@ -15,7 +15,7 @@ namespace kNN.Content
             /*WERSJA STANDARD
              */
 
-
+            //for(int i =0; i<faceToCheck.Count(); i ++)
             Parallel.For(0, faceToCheck.Count(), i =>
             {
                 List<Face> tempKnownFaces = new List<Face>();
@@ -86,12 +86,8 @@ namespace kNN.Content
             for (int i = 0; i < face1.Gradients.Count(); i++ )
             {
                 double difference =  Math.Abs(face1.Gradients[i] - face2.Gradients[i]);
-                if (difference == 7)
+                if (difference == 3)
                     difference = 1;
-                else if (difference == 6)
-                    difference = 2;
-                else if (difference == 5)
-                    difference = 3;
 
                 distance = distance + difference;                 
             }
