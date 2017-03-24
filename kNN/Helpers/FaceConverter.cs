@@ -131,7 +131,7 @@ namespace kNN.Helpers
             {
                 for (int x = 0; x < gX; x++)
                 {
-                    gradient.Add((int)(values[x, y] / numbers[x, y]));
+                    gradient.Add((int)Math.Round((values[x, y] / (double)numbers[x, y])));
                 }
             }
             
