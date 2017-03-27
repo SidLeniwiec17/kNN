@@ -1,0 +1,14 @@
+C:\Projects\MSI\Ocenianie twarzy\FaceRate\FaceRate\bin\Debug\FaceRate.exe.config
+C:\Projects\MSI\Ocenianie twarzy\FaceRate\FaceRate\bin\Debug\FaceRate.exe
+C:\Projects\MSI\Ocenianie twarzy\FaceRate\FaceRate\bin\Debug\FaceRate.pdb
+C:\Projects\MSI\Ocenianie twarzy\FaceRate\FaceRate\obj\Debug\FaceRate.csprojResolveAssemblyReference.cache
+C:\Projects\MSI\Ocenianie twarzy\FaceRate\FaceRate\obj\Debug\MainWindow.g.cs
+C:\Projects\MSI\Ocenianie twarzy\FaceRate\FaceRate\obj\Debug\App.g.cs
+C:\Projects\MSI\Ocenianie twarzy\FaceRate\FaceRate\obj\Debug\FaceRate_MarkupCompile.cache
+C:\Projects\MSI\Ocenianie twarzy\FaceRate\FaceRate\obj\Debug\FaceRate_MarkupCompile.lref
+C:\Projects\MSI\Ocenianie twarzy\FaceRate\FaceRate\obj\Debug\MainWindow.baml
+C:\Projects\MSI\Ocenianie twarzy\FaceRate\FaceRate\obj\Debug\FaceRate.g.resources
+C:\Projects\MSI\Ocenianie twarzy\FaceRate\FaceRate\obj\Debug\FaceRate.Properties.Resources.resources
+C:\Projects\MSI\Ocenianie twarzy\FaceRate\FaceRate\obj\Debug\FaceRate.csproj.GenerateResource.Cache
+C:\Projects\MSI\Ocenianie twarzy\FaceRate\FaceRate\obj\Debug\FaceRate.exe
+C:\Projects\MSI\Ocenianie twarzy\FaceRate\FaceRate\obj\Debug\FaceRate.pdb
