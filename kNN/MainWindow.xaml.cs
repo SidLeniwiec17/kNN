@@ -91,5 +91,20 @@ namespace kNN
                    FileLoader.CopyAnswers(solution, answerPath);
                });
         }
+
+        private void SaveBin_Click(object sender, RoutedEventArgs e)
+        {
+            if (FileLoader.SaveBinary(dataSet) == 1)
+                Console.WriteLine("zapisano do binarki");
+        }
+        private void LoadBin_Click(object sender, RoutedEventArgs e)
+        {
+            dataSet.Clear();
+            dataSet = FileLoader.LoadBinary();
+            if (dataSet.Count >= 1)
+            {
+                Console.WriteLine("wczytano z binarki " + dataSet.Count + " danych");
+            }
+        }
     }
 }

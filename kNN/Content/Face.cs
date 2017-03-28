@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace kNN.Content
 {
+    [Serializable]
     public class Face
     {
         public string Class { get; set; }

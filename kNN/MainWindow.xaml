@@ -7,6 +7,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition/>
@@ -21,7 +22,10 @@
             <Label Content="k = " Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
             <TextBox Name="kTextBox" Grid.Row="3" Grid.Column="1" HorizontalAlignment="left" Text="4" VerticalAlignment="Center" />
             <Button Content="RUN" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="4" VerticalAlignment="Center" Click="Knn_Click"/>
+            <Button Grid.Row="0" Grid.Column="2" Content="Save Binary Data" HorizontalAlignment="Center" VerticalAlignment="Center" Click="SaveBin_Click"/>
+            <Button Grid.Row="1" Grid.Column="2" Content="Load Binary Data" HorizontalAlignment="Center" VerticalAlignment="Center" Click="LoadBin_Click"/>
         </Grid>
+        
         <Border Name="BlakWait" BorderBrush="Black" BorderThickness="1" Background="#80000000" Visibility="Collapsed" Grid.RowSpan="3" Grid.ColumnSpan="3" >
             <Grid>
                 <TextBlock Margin="0" TextWrapping="Wrap" Text="Please Wait..." HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" FontWeight="Bold" Foreground="#7EFFFFFF"/>
